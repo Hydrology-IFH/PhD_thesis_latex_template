@@ -1,0 +1,127 @@
+%%%-----------------------------------------------------------
+% Latex-Template for writing a PhD-Thesis as monography
+% at Hydrological Chairs of University of Freiburg
+% 2024, created by Robin Schwemmle
+%%%-----------------------------------------------------------
+
+%%% File encoding: UTF-8
+%% äöüÄÖÜß  <-- no German Umlauts here? Use an UTF-8 compatible editor!
+
+%%% Magic comments for setting the correct parameters in compatible IDEs
+% !TeX encoding = utf8
+% !TeX program = pdflatex
+% !TeX spellcheck = en_GB
+% !BIB program = bibtex
+
+\documentclass[master,english]{hydrothesis}
+% Permissible options in [..]:
+%   Type of work: master
+%   Main language: english
+%%%----------------------------------------------------------
+
+\usepackage[utf8]{inputenc}		% Remove when using lualatex or xelatex
+\usepackage{blindtext}
+\usepackage{tocloft}
+\setlength{\cftfignumwidth}{5.55em}
+
+%% list of abbreviations
+% After running typeset with LaTex go to the terminal and move to the folder which
+% contains the main.tex and execute makeglossaries main. Then run Typeset again.
+\makeglossaries
+
+%% list of symbols
+% After running typeset with LaTex go to the terminal and move to the folder which
+% contains the main.tex and execute makeindex main.nlo -s nomencl.ist -o main.nls. Then run Typeset again.
+\makenomenclature
+
+\graphicspath{{figures/}}    % location of images and graphics
+
+% find non-ascii characters with regex [^\x00-\x7F]
+\addbibresource{references.bib} % name of bibliography file (references.bib)
+%\AtBeginBibliography{\setcounter{maxnames}{100}}
+
+%%%----------------------------------------------------------
+% Title page entries
+%%%----------------------------------------------------------
+
+\institute{Chair of Hydrology}
+\university{Albert-Ludwigs-University of Freiburg}
+\author{Name}
+\title{Title}
+\place{Place}
+\datetitle{Month Year}
+\datesub{Month Day Year}
+\datedefense{Month Day Year}
+\dean{Prof. Dr. ...}
+\supervisor{Prof. Dr. ...}
+\cosupervisor{Prof. Dr. ...}
+\secondreviewer{Prof. Dr. ...}
+
+%%% Restricted publication license instead of CC (master only):
+%\strictlicense
+
+%%%----------------------------------------------------------
+\begin{document}
+%%%----------------------------------------------------------
+
+%%%----------------------------------------------------------
+\frontmatter				% title part (roman page numbers)
+%%%----------------------------------------------------------
+
+\pagestyle{title}
+\maketitle
+\pagestyle{front}
+\include{front/dedication} 
+\tableofcontents
+
+\include{front/acknowledgements}
+\include{front/summary}
+\include{front/zusammenfassung}
+\include{front/manuscripts_and_authors_contributions}
+
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+\include{front/glossary}
+\include{front/listofsymbols}
+
+%%%----------------------------------------------------------
+\mainmatter         		% main part (arabic page numbers)
+%%%----------------------------------------------------------
+
+\pagestyle{main}
+\include{chapters/general_introduction}
+\include{chapters/study1}
+\include{chapters/study2}
+\include{chapters/study3}
+\include{chapters/synthesis}
+\include{chapters/conclusion}
+\include{back/code_and_data_availability}
+
+%%%----------------------------------------------------------
+\singlespacing                                   % references
+\printbibliography[heading=bibintoc, title={References}]
+%%%----------------------------------------------------------
+
+%%%----------------------------------------------------------
+\appendix                                          % appendix
+%%%----------------------------------------------------------
+
+\addcontentsline{toc}{chapter}{\listofAfiguresname}
+\listofAfigures
+\addcontentsline{toc}{chapter}{\listofAtablesname}
+\listofAtables
+\renewcommand{\thechapter}{S2}
+\include{back/supplementary_information_study1}
+\renewcommand{\thechapter}{S3}
+\include{back/supplementary_information_study2}
+\renewcommand{\thechapter}{S4}
+\include{back/supplementary_information_study3}
+
+%%% special page for checking print size --------------------
+% \include{back/printbox}
+
+%%%----------------------------------------------------------
+\end{document}
+%%%----------------------------------------------------------
